@@ -1,0 +1,9 @@
+#!/bin/sh
+. ./site.cfg
+[ -z $IMAGE ] || IMAGE=kbase/depl:1.0
+
+docker run --rm -it \
+	--link mysql:mysql \
+	--entrypoint perl \
+	--env MYSERVICES=mysql \
+	$IMAGE ./config/setup_mysql

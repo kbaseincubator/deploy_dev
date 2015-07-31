@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Initialize Shock
+# On startup it ask some update questions.  This answer yes
+#
+
+if [ -z $MYSERVICES ] ; then
+  . ./site.cfg
+  [ -z $IMAGE ] || IMAGE=kbase/depl:1.0
+  docker run -it --rm \
+	--link mongo:mongo \
+	--volume /data/docker/shock:/mnt/Shock \
+	--env MYSERVICES=shock \
+        --volume `pwd`/$0:/tmp/script \
+	--entrypoint bash $IMAGE /tmp/script
+else
+  echo "Initialize shock"
+  yes|./scripts/entrypoint.sh &
+  sleep 2
+  kill $(ps aux|grep shock-server|grep -v grep|awk '{print $2}')
+fi

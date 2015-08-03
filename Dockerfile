@@ -6,6 +6,6 @@
 # The DOE Systems Biology Knowledgebase (KBase)
 # Made available under the KBase Open Source License
 #
-FROM kbase/deplbase:1.0
+FROM kbase/deplbase:latest
 MAINTAINER Shane Canon scanon@lbl.gov
 

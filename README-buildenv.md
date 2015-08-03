@@ -25,7 +25,8 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
     docker pull kbase/deplbase:1.0
 
 ## Allow access to the following ports.
-
-ALLOW 8080:8080 from 0.0.0.0/0
-ALLOW 8443:8443 from 0.0.0.0/0
-ALLOW 6443:6443 from 0.0.0.0/0
+<ul>
+<li>ALLOW 8080:8080 from 0.0.0.0/0</li>
+<li>ALLOW 8443:8443 from 0.0.0.0/0</li>
+<li>ALLOW 6443:6443 from 0.0.0.0/0</li>
+</ul>

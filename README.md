@@ -3,7 +3,7 @@ Tools for deploying a KBase development environment in docker containers
 
 ## Prerequisites
 
-A functioning deployment currently requires around 40GB of disk space available and 8GB of memory in the Docker machine.
+A functioning deployment currently requires around 40GB of disk space available and 8GB of memory in the Docker machine.  For instructions on preparing a deployment environment please refer to the README at https://github.com/kbaseIncubator/deploy_dev/blob/master/README-buildenv.md
 
 ## Create a site config.
 

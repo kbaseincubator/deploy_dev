@@ -1,5 +1,5 @@
 #!/bin/sh
-DEPL=kbase/deplbase:1.0
+DEPL=kbase/deplbase:latest
 BASE=kbase/narrative:base2.0
 KBR=https://github.com/KBaseIncubator/kbrouter
 MONGO=mongo:2.4
@@ -72,6 +72,15 @@ fi
 
 echo "Waiting $T seconds for database servers to start"
 sleep $T
+while [ $(docker logs mysql 2>&1|grep -c 'mysqld: ready for connections.') -lt 1 ] ; do
+  echo "Still waiting for mysql"
+  sleep 1
+done
+
+while [ $(./scripts/setup_mysql|grep -c ERROR) -gt 1 ] ; do
+  echo "mysql may not be up yet"
+  sleep 1
+done
 
 if [ ! -e initialize.out ] ; then
   echo "Initializing database"
@@ -98,15 +107,15 @@ echo "Buidling Router"
 echo "Starting Router"
 (cd ../kbrouter;docker-compose up -d)
 echo "Waiting for router to start"
-sleep 5
+while [ $(curl -s http://$PUBLIC:8080/services/|grep -c user_profile) -lt 1 ] ; do
+  sleep 1
+done
 echo ""
 
 echo "Poking some services to start things up"
-curl -s http://$PUBLIC:8080/services/shock-api > /dev/null
-curl -s http://$PUBLIC:8080/services/awe-api > /dev/null
-curl -s http://$PUBLIC:8080/services/ws > /dev/null &
-curl -s http://$PUBLIC:8080/services/userandjobstate > /dev/null &
-curl -s http://$PUBLIC:8080/services/user_profile > /dev/null &
+for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store; do
+  curl -s http://$PUBLIC:8080/services/$s > /dev/null
+done
 
 echo "Starting awe worker"
 docker inspect mongo > /dev/null
@@ -120,6 +129,9 @@ if [ $? -eq 0 ] ; then
 else
   ./scripts/start_narrative
 fi
+
+echo "Checking deployment"
+./scripts/check_deployment || exit 1
 
 echo "Waiting"
 echo ""

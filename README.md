@@ -29,8 +29,9 @@ These steps are done by the deploy.sh script.  Advanced users may need to run so
 
 ## Build images
 
-Make sure kbase/deplbase:1.0 is available. This is provide by a branch in the bootstrap repo.
+Make sure kbase/deplbase:latest is available. This is available at dockerhub.
 
+    docker pull kbase/deplbase:latest
     docker build -t kbase/depl:1.0 .
     ./scripts/build_narrative
 
@@ -78,7 +79,7 @@ There is a helper script to start a client container.  It will run as your user 
 
 Create a Dockerfile similar to this...
 
-    FROM kbase/deplbase:1.0
+    FROM kbase/depl:1.0
     MAINTAINER Pat Smith psmith@mail.org
 
 Build the image and tag it.  You should probably use a tag different from the default.

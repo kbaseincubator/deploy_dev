@@ -99,7 +99,7 @@ if [ ! -e ../kbrouter ] ; then
 fi
 
 cp ./cluster.ini ../kbrouter/cluster.ini
-[ -e ../kbrouter/ssl/ ] || cp -a ssl/ ../kbrouter/
+[ -e ../kbrouter/ssl/ ] || cp -a ssl ../kbrouter/
 
 echo "Buidling Router"
 (cd ../kbrouter;docker-compose build ) >> build.out

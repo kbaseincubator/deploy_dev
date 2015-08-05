@@ -9,10 +9,15 @@ A functioning deployment currently requires around 40GB of disk space available 
 
     git clone https://github.com/kbaseIncubator/deploy_dev.git
 
-## Create a site config.
+## Create an initial site config.
 
+    cd deploy_dev
     cp site.cfg.example site.cfg
-    edit site.cfg
+
+## Edit site.cfg
+Fill in your username and password
+Fill in your docker machine (in the line that says PUBLIC=)
+(Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.)
 
 ## Run the bootstrap script to start things up
 
@@ -22,14 +27,14 @@ A functioning deployment currently requires around 40GB of disk space available 
 
 These steps are done by the deploy.sh script.  Advanced users may need to run some steps separately.
 
-## Create self-signed certs or copy in certs to ./ssl.  Create the config from the docker template.
+## Create the config from the docker template, and then create self-signed certs (or copy certs to ./ssl). 
 
     ./scripts/generate_config
     ./scripts/create_certs
 
 ## Build images
 
-Make sure kbase/deplbase:latest is available. This is available at dockerhub.
+Get kbase/deplbase:latest from dockerhub and build it.
 
     docker pull kbase/deplbase:latest
     docker build -t kbase/depl:1.0 .

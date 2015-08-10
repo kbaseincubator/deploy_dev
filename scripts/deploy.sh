@@ -18,7 +18,7 @@ done
 # Check for the site.cfg
 if [ ! -e ./site.cfg ] ; then
   echo "No site.cfg"
-  echo "Copy site.cfg.example and modify apprioriately"
+  echo "Copy site.cfg.example and modify appropriately"
   exit
 fi
 

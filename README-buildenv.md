@@ -24,7 +24,7 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
 
 ## Get base docker image for KBase
 
-    docker pull kbase/deplbase:1.0
+    docker pull kbase/deplbase:latest
 
 ## Allow access to the following ports.
 <ul>
@@ -48,4 +48,4 @@ Download and install Boot2Docker from: https://github.com/boot2docker/osx-instal
 
 ## Get base docker image for KBase
 
-    docker pull kbase/deplbase:1.0
+    docker pull kbase/deplbase:latest

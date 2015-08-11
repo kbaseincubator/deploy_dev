@@ -10,7 +10,7 @@ for s in shock-api awe-api transform narrative_method_store handlemngr handleser
 done
 
 
-for s in mysql mongo aweworker_dev; do
+for s in mysql mongo deploydev_aweworkerdev_1; do
   L=$(docker ps -f name=$s$ -q|wc -l) #> /dev/null
   if [ $L -ne 1 ] ; then
     echo "$s not running"

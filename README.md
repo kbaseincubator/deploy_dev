@@ -21,58 +21,7 @@ A functioning deployment currently requires around 40GB of disk space available 
 
 ## Run the bootstrap script to start things up
 
-    ./scripts/deploy.sh
-
-# Detailed steps
-
-These steps are done by the deploy.sh script.  Advanced users may need to run some steps separately.
-
-## Create the config from the docker template, and then create self-signed certs (or copy certs to ./ssl). 
-
-    ./scripts/generate_config
-    ./scripts/create_certs
-
-## Build images
-
-Get kbase/deplbase:latest from dockerhub and build it.
-
-    docker pull kbase/deplbase:latest
-    docker build -t kbase/depl:1.0 .
-    ./scripts/build_narrative
-
-## Start Base services
-
-Start Mongo and mysql
-
-    docker run --name mongo -d mongo:2.4
-    docker run --name mysql -e MYSQL_ROOT_PASSWORD=password -d mysql:5.5
-
-## Initialize Databases
-
-    ./scripts/initialize.sh
-
-## Start services
-
-Clone kbrouter and use it to start things up
-
-    git clone https://github.com/KBaseIncubator/kbrouter
-    cd kbrouter
-    cp ../cluster.ini cluster.ini
-    docker-compose build
-    docker-compose up -d
-    curl http://<publichostname>:8080/services/shock-api
-    curl http://<publichostname>:8080/services/awe-api
-    cd ..
-
-## Start workers
-
-Start a worker.
-
-    ./scripts/start_aweworker
-
-## Start Narrative Proxy Engine
-
-    ./scripts/start_narrative
+    ./deploy.sh
 
 ## Starting a client container:
 
@@ -80,18 +29,22 @@ There is a helper script to start a client container.  It will run as your user 
 
     ./scripts/client.sh
 
-# Developing Services with Containers (draft)
+# Developing Services with Containers (still under development)
 
-Create a Dockerfile similar to this...
+Clone the service repo and add a Dockerfile based on Dockerfile.services
 
-    FROM kbase/depl:1.0
-    MAINTAINER Pat Smith psmith@mail.org
+    git clone https://github.com/user/myrepo
+    cd myrepo
+    cp ../Dockerfile.services Dockerfile
+    edit Dockerfile
+
+Be sure that your service runs in the foreground when you run start_service.  Otherwise the container will immediately exit and die.
 
 Build the image and tag it.  You should probably use a tag different from the default.
 
-    docker build -t psmith/myservice:0.1
+    docker build -t psmith/myservice:0.1 .
 
-Modify the kbrouter config (cluster.ini) to include your service.
+Modify the cluster.ini to include your service.
 
     # Your service name
     [myservice]
@@ -117,7 +70,7 @@ Modify the kbrouter config (cluster.ini) to include your service.
 
 Restart the router
 
-    cd kbrouter
+    cd /path/to/deploy_dev
     docker-compose restart router
 
 Access your service via the public proxy and service URL
@@ -126,20 +79,22 @@ Access your service via the public proxy and service URL
 
 #Debugging Tips
 
-Here are a couple of quick tricks for debugging
+Here are a couple of commands to help with debugging some services
 
 UJS
 
-    docker exec deploytools_ujs_1 cat /kb/deployment/services/userandjobstate/glassfish_domain/UserAndJobState/logs/server.log
+    docker exec proxy_ujs grep -v INFO /kb/deployment/services/userandjobstate/glassfish_domain/UserAndJobState/logs/server.log
 
 Workspace:
 
-    docker exec deploytools_ws_1 cat /kb/deployment/services/workspace/glassfish_domain/Workspace/logs/server.log
+Check the Workspace server log.  
+
+    docker exec proxy_ws grep -v INFO /kb/deployment/services/workspace/glassfish_domain/Workspace/logs/server.log
 
 Shock:
 
-    docker exec deploytools_shock_1 ls /mnt/Shock/logs
+    docker exec proxy_shock-api cat /mnt/Shock/logs/error.log
 
 Web Proxy:
 
-    docker exec deploytools_www_1 cat /var/log/nginx/error.log
+    docker logs kbrouter_www_1

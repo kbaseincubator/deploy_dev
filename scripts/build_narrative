@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . ./site.cfg
-[ -z $IMAGE ] || IMAGE=kbase/depl:1.0
+[ -z $IMAGE ] && IMAGE=kbase/depl:latest
 
 # We need to run this in a container so we don't have to replicate the build environment for the narrative
 # We pass through the docker socket because it will need to build other images.

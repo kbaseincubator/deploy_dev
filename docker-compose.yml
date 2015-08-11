@@ -1,0 +1,34 @@
+router:
+  build: kbrouter
+  environment:
+  ports:
+   - "5000:5000"
+  volumes:
+   - cluster.ini:/code/cluster.ini
+   - /var/run/docker.sock:/var/run/docker.sock
+www:
+  build: kbrouter/proxy/
+  links:
+   - router
+  ports:
+   - "8080:80"
+   - "8443:443"
+  volumes:
+   - ssl:/etc/nginx/ssl/
+aweworkerdev:
+  image: kbase/depl:latest
+  links:
+   - www:www
+  command: aweworker dev
+narrative:
+  image: kbase/depl:latest
+  environment:
+   - MYSERVICES:narrative
+  links:
+   - www:www
+  ports:
+   - "6080:80"
+   - "6443:443"
+  volumes:
+   - /var/run/docker.sock:/var/run/docker.sock
+  command: narrative

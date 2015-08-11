@@ -93,19 +93,16 @@ else
 fi
 sleep 5
 
-if [ ! -e ../kbrouter ] ; then
+if [ ! -e ./kbrouter ] ; then
   echo "Cloning kbrouter"
-  (cd ..; git clone $KBR)
+  git clone $KBR
 fi
 
-cp ./cluster.ini ../kbrouter/cluster.ini
-[ -e ../kbrouter/ssl/ ] || cp -a ssl ../kbrouter/
-
 echo "Building Router"
-(cd ../kbrouter;docker-compose build ) >> build.out
+docker-compose build >> build.out
 
 echo "Starting Router"
-(cd ../kbrouter;docker-compose up -d)
+docker-compose up -d
 echo "Waiting for router to start"
 while [ $(curl -s http://$PUBLIC:8080/services/|grep -c user_profile) -lt 1 ] ; do
   sleep 1
@@ -116,19 +113,6 @@ echo "Poking some services to start things up"
 for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store; do
   curl -s http://$PUBLIC:8080/services/$s > /dev/null
 done
-
-echo "Starting awe worker"
-docker inspect mongo > /dev/null
-./scripts/start_aweworker
-
-echo "Starting narrative front-end"
-docker inspect narrative > /dev/null
-if [ $? -eq 0 ] ; then
-  echo "Narrative running."
-  echo "Kill and remove it and run ./scripts/start_narrative"
-else
-  ./scripts/start_narrative
-fi
 
 echo "Checking deployment"
 ./scripts/check_deployment || exit 1

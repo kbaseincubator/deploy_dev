@@ -1,6 +1,6 @@
 #!/bin/sh
 . ./site.cfg
-[ -z $IMAGE ] || IMAGE=kbase/depl:1.0
+[ -z $IMAGE ] && IMAGE=kbase/depl:latest
 
 HTTPS_PORT=6443
 HTTP_PORT=6080
@@ -13,6 +13,8 @@ ARGS="-d"
 #ARGS="-it --rm "
 
 echo $WWW
+
+docker rm -f narrative || echo Ignore
 
 docker run --name narrative \
 	--link $WWW:www \

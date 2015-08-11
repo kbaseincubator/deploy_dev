@@ -1,6 +1,7 @@
 #!/bin/sh
+
 . ./site.cfg
-[ -z $IMAGE ] || IMAGE=kbase/depl:1.0
+[ -z $IMAGE ] && IMAGE=kbase/depl:latest
 
 CG=dev
 

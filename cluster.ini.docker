@@ -12,6 +12,7 @@ dtdir=/root/dt
 hashfile=githashes
 make-options=DEPLOY_RUNTIME=$KB_RUNTIME ANT_HOME=$KB_RUNTIME/ant
 skip-deploy-client=auth,kb_model_seed,bootstrap,ui-common,narrative,communities_api
+default-modules=kbapi_common,typecomp,jars,auth,kbrest_common
 
 [defaults]
 mem=2g
@@ -23,7 +24,7 @@ setup=setup_service
 auto-deploy-target=deploy
 git-branch=master
 test-args=test
-docker-image=kbase/depl:1.0
+docker-image=kbase/depl:latest
 
 [mongo]
 giturl=none
@@ -95,8 +96,8 @@ api-url=http://public.hostname.org:8080/services/awe-api/
 admin-user=kbaseuserid
 urlname=awe-api
 docker-links=mongo:mongo
-deploy=jars,workspace_deluxe,cdmi_api,kbrest_common,typecomp,matR,translation,CompressionBasedDistance,trees,fbaModelServices,probabilistic_annotation,genome_annotation,idserver,handle_service,ontology_service,kmer_annotation_figfam,meme,CoExpression,KBaseExpression,transform,narrative_method_store,user_and_job_state,njs_wrapper,narrative_job_service,user_profile
-deploy-master=workspace_deluxe,kb_seed,handle_service,handle_mngr,awe_service,transform,shock_service,narrative_method_store,user_and_job_state,njs_wrapper,narrative_job_service,user_profile
+deploy=jars,workspace_deluxe,cdmi_api,kbrest_common,typecomp,matR,translation,CompressionBasedDistance,trees,fbaModelServices,probabilistic_annotation,genome_annotation,genome_comparison,idserver,handle_service,ontology_service,kmer_annotation_figfam,meme,CoExpression,KBaseExpression,transform,narrative_method_store,user_and_job_state,njs_wrapper,narrative_job_service,user_profile
+deploy-master=workspace_deluxe,kb_seed,handle_service,handle_mngr,awe_service,transform,shock_service,narrative_method_store,user_and_job_state,njs_wrapper,narrative_job_service,user_profile,genome_comparison
 
 [aweworker]
 type=worker
@@ -562,10 +563,13 @@ ws_url=http://public.hostname.org:8080/services/ws/
 awe_url=http://public.hostname.org:8080/services/awe-api/
 shock_url=http://public.hostname.org:8080/services/shock-api/
 client_group=dev
+#client_group_map=genome_annotation:annotation_njs,assembly:assembly_njs,KBaseFBAModeling:modeling_njs
 script_wrapper=njs-run-step
-service_wrappers=njs-run-fba-modeling,njs-run-genome-annotation
+service_wrappers=njs-run-fba-modeling,njs-run-genome-annotation,njs-genome-comparison
 supported_services=KBaseFBAModeling,genome_annotation,GenomeComparison
 supported_urls=http://public.hostname.org:8080/services/KBaseFBAModeling,http://public.hostname.org:8080/services/genome_annotation,https://public.hostname.org:8080/services/genome_comparison/jsonrpc
+service_auth_name=kbaseuserid
+service_auth_token=kbpassword
 service-port=7080
 host=narrativejobservice
 

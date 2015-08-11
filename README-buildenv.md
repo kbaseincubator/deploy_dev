@@ -11,7 +11,7 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
 
     sudo apt-get update
 
-## Setup docker
+## Download/install the latest docker package. Create docker group and add your user.
 
     wget -qO- https://get.docker.com/ | sh
     sudo usermod -aG docker ubuntu # log out and back in

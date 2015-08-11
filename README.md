@@ -29,6 +29,8 @@ There is a helper script to start a client container.  It will run as your user 
 
     ./scripts/client.sh
 
+If you encounter problems when trying to deploy, you can look at the README file (https://github.com/kbaseIncubator/deploy_dev/blob/master/README-deploy.md) that describes in detail the steps that are performed by the deployment script.
+
 # Developing Services with Containers (still under development)
 
 Clone the service repo and add a Dockerfile based on Dockerfile.services
@@ -40,11 +42,14 @@ Clone the service repo and add a Dockerfile based on Dockerfile.services
 
 Be sure that your service runs in the foreground when you run start_service.  Otherwise the container will immediately exit and die.
 
+The template will concatentate the deploy.cfg file to /kb/deployment/deployment.cfg.  Modify the template apprioriately based on the
+needs of the service.
+
 Build the image and tag it.  You should probably use a tag different from the default.
 
     docker build -t psmith/myservice:0.1 .
 
-Modify the cluster.ini to include your service.
+Modify the cluster.ini in the deploy_dev area to include your service.
 
     # Your service name
     [myservice]
@@ -81,15 +86,19 @@ Access your service via the public proxy and service URL
 
 Here are a couple of commands to help with debugging some services
 
+Checking logs:  From the deploy_dev directory run...
+
+    docker-compose logs
+
 UJS
 
-    docker exec proxy_ujs grep -v INFO /kb/deployment/services/userandjobstate/glassfish_domain/UserAndJobState/logs/server.log
+    docker logs proxy_ujs |grep -v INFO
 
 Workspace:
 
 Check the Workspace server log.  
 
-    docker exec proxy_ws grep -v INFO /kb/deployment/services/workspace/glassfish_domain/Workspace/logs/server.log
+    docker logs proxy_ws|grep -v INFO
 
 Shock:
 
@@ -97,4 +106,5 @@ Shock:
 
 Web Proxy:
 
-    docker logs kbrouter_www_1
+    docker logs deploydev_www_1
+

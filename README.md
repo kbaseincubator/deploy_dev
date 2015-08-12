@@ -5,11 +5,11 @@ Tools for deploying a KBase development environment in docker containers
 
 A functioning deployment currently requires around 40GB of disk space available and 8GB of memory in the Docker machine.  For instructions on preparing a deployment environment please refer to the README at https://github.com/kbaseIncubator/deploy_dev/blob/master/README-buildenv.md
 
-## Clone this repo.
+## Clone this repo
 
     git clone https://github.com/kbaseIncubator/deploy_dev.git
 
-## Create an initial site config.
+## Create an initial site config
 
     cd deploy_dev
     cp site.cfg.example site.cfg
@@ -31,6 +31,11 @@ There is a helper script to start a client container.  It will run as your user 
 
 If you encounter problems when trying to deploy, you can look at the README file (https://github.com/kbaseIncubator/deploy_dev/blob/master/README-deploy.md) that describes in detail the steps that are performed by the deployment script.
 
+## Resetting
+
+Sometimes the deployment fails, and you need to start over. Run the reset script before you try again:
+    ./scripts/reset.sh
+    
 # Developing Services with Containers (still under development)
 
 Clone the service repo and add a Dockerfile based on Dockerfile.services

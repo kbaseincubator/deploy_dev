@@ -2,38 +2,10 @@
 #
 # Build narrative image with this configuration
 #
-# This uses the source in the deplbase image.  Eventually we should 
-# just have an upstream narrative image that we just fix up the config.
+. ./site.cfg
 
-if [ -z $MYSERVICES ] ; then
-  . ./site.cfg
-  [ -z $IMAGE ] && IMAGE=kbase/depl:latest
-
-  docker run -it --rm \
-	--hostname narrative \
-	-v /var/run/docker.sock:/var/run/docker.sock \
-        --env MOVEBUILD=1 \
-        --env MYSERVICES=narrative \
-        --env PUBLIC=$PUBLIC \
-        --volume `pwd`/$0:/tmp/script \
-        --entrypoint bash $IMAGE /tmp/script
-else
-  if [ -e /kb/dev_container/modules/narrative/fixupURL.sh ] ; then
-    echo "Use fixURL"
-    cat << EOF > /kb/dev_container/modules/narrative/url.cfg 
-# Do not include http or https
-# Do not include any slashes
+cat << EOF > ./narrative/url.cfg 
 SERVICESSL=$PUBLIC:8443
 NARRSSL=$PUBLIC:6443
 EOF
-    echo $PUBLIC
-    cd /kb/dev_container/modules
-    mkdir build
-    mv narrative/ build/
-    cd build/narrative
-    sh ./buildNarrativeContainer.sh
-  else 
-    echo "Stock"
-    ./config/postprocess_narrarative
-  fi
-fi
+docker build -t kbase/narrative:latest narrative

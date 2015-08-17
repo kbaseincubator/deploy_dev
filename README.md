@@ -42,7 +42,7 @@ Clone the service repo and add a Dockerfile based on Dockerfile.services
 
     git clone https://github.com/user/myrepo
     cd myrepo
-    cp ../Dockerfile.services Dockerfile
+    cp ../Dockerfile.service Dockerfile
     edit Dockerfile
 
 Be sure that your service runs in the foreground when you run start_service.  Otherwise the container will immediately exit and die.

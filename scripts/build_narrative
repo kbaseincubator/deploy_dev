@@ -1,14 +1,11 @@
 #!/bin/sh
-
-. ./site.cfg
-[ -z $IMAGE ] && IMAGE=kbase/depl:latest
-
-# We need to run this in a container so we don't have to replicate the build environment for the narrative
-# We pass through the docker socket because it will need to build other images.
 #
-docker run -it --rm \
-	--hostname narrative \
-	-v /var/run/docker.sock:/var/run/docker.sock \
-        --env MOVEBUILD=1 \
-	--entrypoint perl \
-	$IMAGE ./config/postprocess_narrative
+# Build narrative image with this configuration
+#
+. ./site.cfg
+
+cat << EOF > ./narrative/url.cfg 
+SERVICESSL=$PUBLIC:8443
+NARRSSL=$PUBLIC:6443
+EOF
+docker build -t kbase/narrative:latest narrative

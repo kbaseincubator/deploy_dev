@@ -4,10 +4,11 @@ BASE=kbase/narrative:base2.0
 KBR=https://github.com/KBaseIncubator/kbrouter
 MONGO=mongo:2.4
 MYSQL=mysql:5.5
+NGINX=nginx:1.9.2
 
 # Pre-reqs
 echo "Preflight"
-for image in $DEPL $BASE $MONGO $MYSQL; do
+for image in $DEPL $BASE $MONGO $MYSQL $NGINX; do
   docker inspect $image > /dev/null
   if [ $? -ne 0 ] ; then
     echo "Pulling $image"
@@ -33,6 +34,9 @@ fi
 
 # Source the config
 . ./site.cfg
+
+# Run some other checks (this script could expand over time)
+./scripts/preflight || exit
 
 [ -e ./cluster.ini ] || ./scripts/generate_config
 

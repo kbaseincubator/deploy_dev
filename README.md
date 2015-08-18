@@ -15,9 +15,12 @@ A functioning deployment currently requires around 40GB of disk space available 
     cp site.cfg.example site.cfg
 
 ## Edit site.cfg
-    Fill in your username and password
-    Fill in your docker machine (in the line that says PUBLIC=)
-    (Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.)
+
+    USER=<your username>
+    PASSWORD=<your password>
+    PUBLIC=<your machine public IP or public hostname>
+
+Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.)
 
 ## Run the bootstrap script to start things up
 

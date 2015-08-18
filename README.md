@@ -3,7 +3,7 @@ Tools for deploying a KBase development environment in docker containers
 
 ## Prerequisites
 
-A functioning deployment currently requires around 40GB of disk space available and 8GB of memory in the Docker machine.  For instructions on preparing a deployment environment please refer to the README at https://github.com/kbaseIncubator/deploy_dev/blob/master/README-buildenv.md
+A functioning deployment currently requires around 40GB of disk space available and 8GB of memory in the Docker machine. For instructions on preparing a deployment environment please refer to the README at https://github.com/kbaseIncubator/deploy_dev/blob/master/README-buildenv.md
 
 ## Clone this repo
 
@@ -18,9 +18,9 @@ A functioning deployment currently requires around 40GB of disk space available 
 
     USER=<your username>
     PASSWORD=<your password>
-    PUBLIC=<your machine public IP or public hostname>
+    PUBLIC=<public IP or public hostname of your machine>
 
-Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.)
+Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.
 
 ## Run the bootstrap script to start things up
 
@@ -28,7 +28,7 @@ Note that your docker machine needs to be accessible from your webbrowser, becau
 
 ## Starting a client container:
 
-There is a helper script to start a client container.  It will run as your user id using your home directory.
+There is a helper script to start a client container. It will run as your user id using your home directory.
 
     ./scripts/client.sh
 

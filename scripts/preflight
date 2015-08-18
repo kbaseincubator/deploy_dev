@@ -20,7 +20,7 @@ if [ $(curl -s $PUBLIC:8888 |grep -c Thank) -eq 0 ] ;then
 fi
 
 echo "Testing $PUBLIC address inside a container"
-if [ $(echo -en "GET / HTTP/1.0\n\n\n\n"|docker run -i --rm ubuntu:14.04 nc -i 1 $PUBLIC 8888 |grep -c Thank) -eq 0 ] ;then
+if [ $(echo -en "GET / HTTP/1.0\n\n\n\n"|docker run -i --rm ubuntu:14.04 nc -w 3 -i 1 $PUBLIC 8888 |grep -c Thank) -eq 0 ] ;then
   echo "Failed to reach server on $PUBLIC address inside a container"
   docker rm -f $NAME > /dev/null
   exit 1

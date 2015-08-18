@@ -22,9 +22,6 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
     sudo mv docker-compose /usr/local/bin/
     chmod +x /usr/local/bin/docker-compose
 
-## Get base docker image for KBase
-
-    docker pull kbase/deplbase:latest
 
 ## Allow access to the following ports.
 <ul>
@@ -47,6 +44,3 @@ Download and install Boot2Docker from: https://github.com/boot2docker/osx-instal
     sudo mv docker-compose /usr/local/bin/
     chmod +x /usr/local/bin/docker-compose
 
-## Get base docker image for KBase
-
-    docker pull kbase/deplbase:latest

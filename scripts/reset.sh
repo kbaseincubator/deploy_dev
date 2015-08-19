@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Warning: This will destory all of you running containers and re-initialize your configuration."
 echo "Ctrl-C if you wish to cancel"

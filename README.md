@@ -20,15 +20,18 @@ A functioning deployment currently requires around 40GB of disk space available 
     PASSWORD=<your password>
     PUBLIC=<public IP or public hostname of your machine>
 
-Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.
+Note that your docker machine needs to be accessible from your web browser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.
 
 ## Run the bootstrap script to start things up
 
     ./deploy.sh
 
-## Starting a client container:
+This will take about 20 minutes to run. If everything completes successfully, ... [finish this]
+---
 
-There is a helper script to start a client container. It will run as your user id using your home directory.
+## Starting a client container
+
+If you want to start a client container, use the client.sh script. It will run as your user id using your home directory.
 
     ./scripts/client.sh
 

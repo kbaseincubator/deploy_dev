@@ -43,30 +43,5 @@ Sometimes the deployment fails, and you need to start over. Run the reset script
 
 Consult the [docs](docs) directory for more information.  You can find more details on developing in the deploy_dev environment in [README-developing.md](./docs/README-developing.md).
 
-
-#Debugging Tips
-
-Here are a couple of commands to help with debugging some services
-
-Checking logs:  From the deploy_dev directory run...
-
-    docker-compose logs
-
-UJS
-
-    docker logs proxy_ujs |grep -v INFO
-
-Workspace:
-
-Check the Workspace server log.  
-
-    docker logs proxy_ws|grep -v INFO
-
-Shock:
-
-    docker exec proxy_shock-api cat /mnt/Shock/logs/error.log
-
-Web Proxy:
-
-    docker logs deploydev_www_1
+You can find tips for debugging in [docs/README-debugging](docs/README-debugging.md).
 

@@ -107,6 +107,14 @@ docker-compose build >> build.out
 
 echo "Starting Router"
 docker-compose up -d
+if [ $? -ne 0 ] ; then
+  echo "==========================="
+  echo ""
+  echo "Failed on docker-compose up"
+  echo "Make sure your image names specified in docker-compose.yml match the name in site.cfg ($IMAGE)"
+  exit 2
+fi
+
 echo "Waiting for router to start"
 while [ $(curl -s http://$PUBLIC:8080/services/|grep -c user_profile) -lt 1 ] ; do
   sleep 1

@@ -572,6 +572,7 @@ service_auth_name=kbaseuserid
 service_auth_token=kbpassword
 service-port=7080
 host=narrativejobservice
+urlname=narrativejobservice
 
 [NarrativeJobService]
 # this the NJS wrapper service

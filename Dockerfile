@@ -9,3 +9,11 @@
 FROM kbase/deplbase:latest
 MAINTAINER Shane Canon scanon@lbl.gov
 
+
+RUN cat ssl/proxy.crt  >> /etc/ssl/certs/ca-certificates.crt && \
+    cat ssl/proxy.crt > /etc/ssl/certs/`openssl x509 -noout -hash -in ssl/proxy.crt`.0 && \
+    cat ssl/proxy.crt  >> /usr/local/lib/python2.7/dist-packages/requests/cacert.pem && \
+    cat ssl/narrative.crt  >> /etc/ssl/certs/ca-certificates.crt && \
+    cat ssl/narrative.crt > /etc/ssl/certs/`openssl x509 -noout -hash -in ssl/narrative.crt`.0 && \
+    cpanm  -i Time::ParseDate
+

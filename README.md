@@ -26,7 +26,11 @@ Note that your docker machine needs to be accessible from your web browser, beca
 
     ./deploy.sh
 
-This will take about 20 minutes to run. If everything completes successfully, ... [finish this]
+This will take about 20 minutes to run. If everything completes successfully, it will tell you the URL at which you can see your narrative instance, e.g.,
+    Point your browser to: https://docker04.berkeley.kbase.us:6443/
+    But visit https://docker04.berkeley.kbase.us:8443/services/ first to accept the SSL certificate.
+
+If the deploy script hangs, you may need to kill it and reset (see the "Resetting" section below).
 ---
 
 ## Starting a client container

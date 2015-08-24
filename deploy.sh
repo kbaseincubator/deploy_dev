@@ -121,12 +121,6 @@ while [ $(curl -s http://${PUBLIC_ADDRESS}:8080/services/|grep -c user_profile) 
 done
 echo ""
 
-echo "Poking some services to start things up"
-for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice; do
-  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
-done
-sleep 5
-
 echo "Checking deployment"
 ./scripts/check_deployment || exit 1
 

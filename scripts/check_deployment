@@ -1,5 +1,11 @@
 #!/bin/sh
 
+echo "Poking some services to start things up"
+for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice; do
+  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
+  sleep 1
+done  
+
 # Check that things are running
 for s in shock-api awe-api transform narrative_method_store handlemngr handleservice user_profile userandjobstate ws njs_wrapper narrativejobservice; do
   L=$(docker ps -f name=proxy_$s -q|wc -l) #> /dev/null

@@ -6,7 +6,7 @@
 # The DOE Systems Biology Knowledgebase (KBase)
 # Made available under the KBase Open Source License
 #
-FROM kbase/deplbase:latest
+FROM kbase/depl:latest
 MAINTAINER Shane Canon scanon@lbl.gov
 
 ADD . /kb/dev_container/modules/THIS_MODULE
@@ -14,3 +14,6 @@ ADD . /kb/dev_container/modules/THIS_MODULE
 RUN cd /kb/dev_container/modules/THIS_MODODULE && . ../../user-env.sh && make && make deploy && cat deploy.cfg >> /kb/deployment/deployment.cfg
 
 # Make any changes to ensure the service runs in the foreground.
+
+
+# Do not set the docker instruction "CMD", as this would overwrite kbase defaults.

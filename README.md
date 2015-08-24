@@ -26,13 +26,13 @@ Note that your docker machine needs to be accessible from your webbrowser, becau
 
     ./deploy.sh
 
+If you encounter problems when trying to deploy, you can look at the [README-deploy](README-deploy.md) file that describes in detail the steps that are performed by the deployment script.
+
 ## Starting a client container:
 
 There is a helper script to start a client container. It will run as your user id using your home directory.
 
     ./scripts/client.sh
-
-If you encounter problems when trying to deploy, you can look at the [README-deploy](README-deploy.md) file that describes in detail the steps that are performed by the deployment script.
 
 ## Resetting
 

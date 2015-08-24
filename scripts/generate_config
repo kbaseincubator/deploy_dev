@@ -10,6 +10,6 @@ fi
 cat cluster.ini.docker|\
 	sed "s/=kbaseuserid/=$USER/"| \
 	sed "s/=kbpassword/=$PASSWORD/"| \
-	sed "s/public.hostname.org/$PUBLIC/g" | \
+	sed "s/public.hostname.org/${PUBLIC_ADDRESS}/g" | \
 	sed "s|kbase/depl:latest|$IMAGE|g" \
 	> cluster.ini

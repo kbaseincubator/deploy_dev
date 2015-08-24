@@ -31,6 +31,14 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
 <li>ALLOW 6443:6443 from 0.0.0.0/0</li>
 </ul>
 
+e.g. OpenStack, create security group using nova tools:
+
+    nova secgroup-create mykbdepl "my kb deployment ports"
+    nova secgroup-add-rule mykbdepl tcp 8080 8080 0.0.0.0/0
+    nova secgroup-add-rule mykbdepl tcp 8888 8888 0.0.0.0/0
+    nova secgroup-add-rule mykbdepl tcp 8443 8443 0.0.0.0/0
+    nova secgroup-add-rule mykbdepl tcp 6443 6443 0.0.0.0/0
+    
 
 # Option 2 (Mac OSX 10.6 or newer)
 

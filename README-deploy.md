@@ -12,7 +12,7 @@ These steps are done by the deploy.sh script.  Advanced users may need to run so
 Make sure kbase/deplbase:latest is available. This is available at dockerhub.
 
     docker pull kbase/deplbase:latest
-    docker build -t kbase/depl:1.0 .
+    docker build -t kbase/depl:latest .
     ./scripts/build_narrative
 
 ## Start Base services

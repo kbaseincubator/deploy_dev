@@ -3,7 +3,7 @@
 #TODO: this script has to be executed from the deploy_dev directory, may need to check
 
 
-DIRNAME=$(basename `pwd`)
+DIRNAME=$(basename `pwd` | tr -d '_')
 KILLCONTAINER="-f name=proxy_ -f name=${DIRNAME}_ -f name=mysql -f name=mongo"
 echo "Warning: This will kill your running containers (${KILLCONTAINER}) and reinitialize your configuration."
 echo "Hit Ctrl-C if you wish to cancel..."

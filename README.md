@@ -18,7 +18,7 @@ A functioning deployment currently requires around 40GB of disk space available 
 
     USER=<your username>
     PASSWORD=<your password>
-    PUBLIC=<public IP or public hostname of your machine>
+    PUBLIC_ADDRESS=<public IP or public hostname of your machine>
 
 Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.
 

@@ -8,7 +8,7 @@ PASSWORD=password
 # boot2docker or docker-machine, then you need to use the 
 # hostname/IP corresponding to the virtual machine (i.e. the 
 # address returned by boot2docker ip or docker-machine ip dev)
-PUBLIC=public.hostname.org
+PUBLIC_ADDRESS=public.hostname.org
 
 # If you change this you may need to update cluster.ini too.
 #

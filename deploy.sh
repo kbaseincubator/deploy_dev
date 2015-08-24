@@ -108,14 +108,14 @@ docker-compose build >> build.out
 echo "Starting Router"
 docker-compose up -d
 echo "Waiting for router to start"
-while [ $(curl -s http://$PUBLIC:8080/services/|grep -c user_profile) -lt 1 ] ; do
+while [ $(curl -s http://${PUBLIC_ADDRESS}:8080/services/|grep -c user_profile) -lt 1 ] ; do
   sleep 1
 done
 echo ""
 
 echo "Poking some services to start things up"
 for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store; do
-  curl -s http://$PUBLIC:8080/services/$s > /dev/null
+  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
 done
 
 echo "Checking deployment"
@@ -125,5 +125,5 @@ echo "Waiting"
 echo ""
 wait
 echo "Done"
-echo "Point your browser to: https://$PUBLIC:6443/"
-echo "But visit https://$PUBLIC:8443/services/ first to accept the SSL certificate."
+echo "Point your browser to: https://${PUBLIC_ADDRESS}:6443/"
+echo "But visit https://${PUBLIC_ADDRESS}:8443/services/ first to accept the SSL certificate."

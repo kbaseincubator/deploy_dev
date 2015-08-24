@@ -1,6 +1,11 @@
 #!/bin/bash
 
-echo "Warning: This will kill all of your running containers and reinitialize your configuration."
+#TODO: this script has to be executed from the deploy_dev directory, may need to check
+
+
+DIRNAME=$(basename `pwd`)
+KILLCONTAINER="-f name=proxy_ -f name=${DIRNAME}_ -f name=mysql -f name=mongo"
+echo "Warning: This will kill your running containers (${KILLCONTAINER}) and reinitialize your configuration."
 echo "Hit Ctrl-C if you wish to cancel..."
 
 t=8
@@ -11,9 +16,12 @@ while [ $t -gt 0 ] ; do
 done
 echo
 
-# Kill all containers
-echo "Killing all containers"
-docker rm -f $(docker ps -a -q)
+
+
+# Kill containers
+echo "Killing containers"
+
+docker rm -f $(docker ps ${KILLCONTAINER} -a -q)
 
 echo "Cleaning up dangling images"
 docker rmi $(docker images -f dangling=true -q)

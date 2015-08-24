@@ -23,7 +23,7 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
     chmod +x /usr/local/bin/docker-compose
 
 
-## Allow access to the following ports.
+## Allow access to the following TCP ports.
 <ul>
 <li>ALLOW 8080:8080 from 0.0.0.0/0</li>
 <li>ALLOW 8888:8888 from 0.0.0.0/0</li>

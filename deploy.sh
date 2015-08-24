@@ -91,11 +91,11 @@ if [ ! -e initialize.out ] ; then
   ./scripts/initialize.sh > initialize.out
 else
   echo ""
-  echo "Skipping Initialize."
-  echo "Run ./scripts/initialize.sh by hand if you need to re-initialize"
+  echo "WARNING:  Skipping Initialize."
+  echo "WARNING:  Run ./scripts/initialize.sh by hand if you need to re-initialize"
   echo ""
 fi
-sleep 5
+sleep 1
 
 if [ ! -e ./kbrouter ] ; then
   echo "Cloning kbrouter"
@@ -122,9 +122,10 @@ done
 echo ""
 
 echo "Poking some services to start things up"
-for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store; do
+for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice; do
   curl -s http://$PUBLIC:8080/services/$s > /dev/null
 done
+sleep 5
 
 echo "Checking deployment"
 ./scripts/check_deployment || exit 1

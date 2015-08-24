@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Warning: This will kill all of your running containers and reinitialize your configuration."
+echo "Warning: This will kill all of your running containers and reinitialize parts of your configuration."
 echo "Hit Ctrl-C if you wish to cancel..."
 
 t=8
@@ -24,6 +24,5 @@ if [ -e site.cfg ] ; then
   docker rmi $IMAGE
 fi
 
-rm -f cluster.ini
 rm -f initialize.out
 

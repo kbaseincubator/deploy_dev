@@ -1,15 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
 . ./site.cfg
 
 NAME=testweb.$$
-docker run --name $NAME -d --publish 8888:80 nginx:1.9.2 > /dev/null 2>&1 || exit
+docker run --name $NAME -d --publish 8888:80 nginx:1.9.2 > /dev/null 2>&1 
+if [ $? -ne 0 ] ;then
+  echo "Failed to start server.  Perhaps an older container is using port 8888."
+  echo "If so try removing it first with docker rm -f"
+  docker ps|grep :8888
+  exit 1
+fi
+sleep 1
 
 echo "Checking that we can reach server on localhost"
 if [ $(curl -s localhost:8888 |grep -c Thank) -eq 0 ] ;then
-  echo "Failed to start test server.  Is docker working"
-  docker rm -f $NAME > /dev/null
-  exit 1
+  echo "Warn: Failed to contact test server.  Is it running?"
+  echo "Warn: This may fail on Mac based systems."
+  docker ps|grep :8888
 fi
 
 echo "Testing $PUBLIC address"

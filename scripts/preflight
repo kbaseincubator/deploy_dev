@@ -19,16 +19,16 @@ if [ $(curl -s localhost:8888 |grep -c Thank) -eq 0 ] ;then
   docker ps|grep :8888
 fi
 
-echo "Testing $PUBLIC address"
-if [ $(curl -s $PUBLIC:8888 |grep -c Thank) -eq 0 ] ;then
-  echo "Failed to reach server on $PUBLIC address"
+echo "Testing ${PUBLIC_ADDRESS} address"
+if [ $(curl -s ${PUBLIC_ADDRESS}:8888 |grep -c Thank) -eq 0 ] ;then
+  echo "Failed to reach server on ${PUBLIC_ADDRESS} address"
   docker rm -f $NAME > /dev/null
   exit 1
 fi
 
-echo "Testing $PUBLIC address inside a container"
-if [ $(echo -en "GET / HTTP/1.0\n\n\n\n"|docker run -i --rm ubuntu:14.04 nc -w 3 -i 1 $PUBLIC 8888 |grep -c Thank) -eq 0 ] ;then
-  echo "Failed to reach server on $PUBLIC address inside a container"
+echo "Testing ${PUBLIC_ADDRESS} address inside a container"
+if [ $(echo -en "GET / HTTP/1.0\n\n\n\n"|docker run -i --rm ubuntu:14.04 nc -w 3 -i 1 ${PUBLIC_ADDRESS} 8888 |grep -c Thank) -eq 0 ] ;then
+  echo "Failed to reach server on ${PUBLIC_ADDRESS} address inside a container"
   docker rm -f $NAME > /dev/null
   exit 1
 fi

@@ -23,7 +23,7 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
     chmod +x /usr/local/bin/docker-compose
 
 
-## Allow access to the following ports.
+## Allow access to the following TCP ports.
 <ul>
 <li>ALLOW 8080:8080 from 0.0.0.0/0</li>
 <li>ALLOW 8888:8888 from 0.0.0.0/0</li>
@@ -31,6 +31,14 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
 <li>ALLOW 6443:6443 from 0.0.0.0/0</li>
 </ul>
 
+e.g. OpenStack, create security group using nova tools:
+
+    nova secgroup-create mykbdepl "my kb deployment ports"
+    nova secgroup-add-rule mykbdepl tcp 8080 8080 0.0.0.0/0
+    nova secgroup-add-rule mykbdepl tcp 8888 8888 0.0.0.0/0
+    nova secgroup-add-rule mykbdepl tcp 8443 8443 0.0.0.0/0
+    nova secgroup-add-rule mykbdepl tcp 6443 6443 0.0.0.0/0
+    
 
 # Option 2 (Mac OSX 10.6 or newer)
 
@@ -44,3 +52,6 @@ Download and install Boot2Docker from: https://github.com/boot2docker/osx-instal
     sudo mv docker-compose /usr/local/bin/
     chmod +x /usr/local/bin/docker-compose
 
+# Option 3 - not tested (Mac OS X 10.8+ and Windows 7+ (64-bit))
+
+https://kitematic.com/

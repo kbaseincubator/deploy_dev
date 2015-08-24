@@ -52,3 +52,6 @@ Download and install Boot2Docker from: https://github.com/boot2docker/osx-instal
     sudo mv docker-compose /usr/local/bin/
     chmod +x /usr/local/bin/docker-compose
 
+# Option 3 (Max OSX, not tested)
+
+https://kitematic.com/

@@ -122,7 +122,7 @@ x509_extensions	= v3_ca	# The extentions to add to the self signed cert
 # WARNING: ancient versions of Netscape crash on BMPStrings or UTF8Strings.
 string_mask = utf8only
 
-req_extensions = v3_req # The extensions to add to a certificate request
+# req_extensions = v3_req # The extensions to add to a certificate request
 
 [ req_distinguished_name ]
 countryName			= Country Name (2 letter code)
@@ -147,7 +147,6 @@ organizationalUnitName		= Organizational Unit Name (eg, section)
 
 commonName			= Common Name (e.g. server FQDN or YOUR name)
 commonName_max			= 64
-commonName_default		= $ENV::PUBLIC_ADDRESS
 
 emailAddress			= Email Address
 emailAddress_max		= 64
@@ -219,12 +218,8 @@ authorityKeyIdentifier=keyid,issuer
 
 # Extensions to add to a certificate request
 
-basicConstraints = CA:TRUE
-keyUsage = digitalSignature, keyEncipherment
-subjectAltName = @alt_names
-
-[alt_names]
-DNS.1 = $ENV::PUBLIC_ADDRESS
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 
 [ v3_ca ]
 

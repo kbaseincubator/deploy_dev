@@ -9,17 +9,17 @@ NGINX=nginx:1.9.2
 # Pre-reqs
 echo "Preflight"
 for image in $DEPL $BASE $MONGO $MYSQL $NGINX; do
-  docker inspect $image > /dev/null
-  if [ $? -ne 0 ] ; then
+  #docker inspect $image > /dev/null
+  #if [ $? -ne 0 ] ; then
     echo "Pulling $image"
     docker pull $image
-  fi
+  #fi
 done
 
 # Check for the site.cfg
 if [ ! -e ./site.cfg ] ; then
   echo "No site.cfg"
-  echo "Copy site.cfg.example and modify appropriately"
+  echo "Copy site.cfg.example and modify appropriately, inserting your KBase developer username and password"
   exit
 fi
 
@@ -91,11 +91,11 @@ if [ ! -e initialize.out ] ; then
   ./scripts/initialize.sh > initialize.out
 else
   echo ""
-  echo "Skipping Initialize."
-  echo "Run ./scripts/initialize.sh by hand if you need to re-initialize"
+  echo "WARNING:  Skipping Initialize."
+  echo "WARNING:  Run ./scripts/initialize.sh by hand if you need to re-initialize"
   echo ""
 fi
-sleep 5
+sleep 1
 
 if [ ! -e ./kbrouter ] ; then
   echo "Cloning kbrouter"
@@ -107,16 +107,19 @@ docker-compose build >> build.out
 
 echo "Starting Router"
 docker-compose up -d
+if [ $? -ne 0 ] ; then
+  echo "==========================="
+  echo ""
+  echo "Failed on docker-compose up"
+  echo "Make sure your image names specified in docker-compose.yml match the name in site.cfg ($IMAGE)"
+  exit 2
+fi
+
 echo "Waiting for router to start"
-while [ $(curl -s http://$PUBLIC:8080/services/|grep -c user_profile) -lt 1 ] ; do
+while [ $(curl -s http://${PUBLIC_ADDRESS}:8080/services/|grep -c user_profile) -lt 1 ] ; do
   sleep 1
 done
 echo ""
-
-echo "Poking some services to start things up"
-for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store; do
-  curl -s http://$PUBLIC:8080/services/$s > /dev/null
-done
 
 echo "Checking deployment"
 ./scripts/check_deployment || exit 1
@@ -125,5 +128,5 @@ echo "Waiting"
 echo ""
 wait
 echo "Done"
-echo "Point your browser to: https://$PUBLIC:6443/"
-echo "But visit https://$PUBLIC:8443/services/ first to accept the SSL certificate."
+echo "Point your browser to: https://${PUBLIC_ADDRESS}:6443/"
+echo "But visit https://${PUBLIC_ADDRESS}:8443/services/ first to accept the SSL certificate."

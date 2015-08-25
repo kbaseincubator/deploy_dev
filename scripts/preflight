@@ -3,7 +3,14 @@
 . ./site.cfg
 
 NAME=testweb.$$
-docker run --name $NAME -d --publish 8888:80 nginx:1.9.2 > /dev/null 2>&1 || exit
+docker run --name $NAME -d --publish 8888:80 nginx:1.9.2 > /dev/null 2>&1 
+if [ $? -ne 0 ] ;then
+  echo "Failed to start server.  Perhaps an older container is using port 8888."
+  echo "If so try removing it first with docker rm -f, or run the reset script (scripts/reset.sh)"
+  docker ps|grep :8888
+  exit 1
+fi
+sleep 1
 
 if [ $BOOT2DOCKER -eq 0 ] ;then
   echo "Checking that we can reach server on localhost"
@@ -14,16 +21,16 @@ if [ $BOOT2DOCKER -eq 0 ] ;then
   fi
 fi
 
-echo "Testing $PUBLIC address"
-if [ $(curl -s $PUBLIC:8888 |grep -c Thank) -eq 0 ] ;then
-  echo "Failed to reach server on $PUBLIC address"
+echo "Testing ${PUBLIC_ADDRESS} address"
+if [ $(curl -s ${PUBLIC_ADDRESS}:8888 |grep -c Thank) -eq 0 ] ;then
+  echo "Failed to reach server on ${PUBLIC_ADDRESS} address"
   docker rm -f $NAME > /dev/null
   exit 1
 fi
 
-echo "Testing $PUBLIC address inside a container"
-if [ $(echo -en "GET / HTTP/1.0\n\n\n\n"|docker run -i --rm ubuntu:14.04 nc -w 3 -i 1 $PUBLIC 8888 |grep -c Thank) -eq 0 ] ;then
-  echo "Failed to reach server on $PUBLIC address inside a container"
+echo "Testing ${PUBLIC_ADDRESS} address inside a container"
+if [ $(echo -en "GET / HTTP/1.0\n\n\n\n"|docker run -i --rm ubuntu:14.04 nc -w 3 -i 1 ${PUBLIC_ADDRESS} 8888 |grep -c Thank) -eq 0 ] ;then
+  echo "Failed to reach server on ${PUBLIC_ADDRESS} address inside a container"
   docker rm -f $NAME > /dev/null
   exit 1
 fi

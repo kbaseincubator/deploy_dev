@@ -4,19 +4,20 @@ router:
   ports:
    - "5000:5000"
   volumes:
-   - cluster.ini:/code/cluster.ini
+   - ./cluster.ini:/code/cluster.ini
    - /var/run/docker.sock:/var/run/docker.sock
 www:
-  build: kbrouter/proxy/
+  build: proxy/
   links:
    - router
   ports:
    - "8080:80"
    - "8443:443"
   volumes:
-   - ssl:/etc/nginx/ssl/
+   - ./ssl:/etc/nginx/ssl/
 aweworkerdev:
   image: kbase/depl:latest
+  restart: always
   links:
    - www:www
   command: aweworker dev

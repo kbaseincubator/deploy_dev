@@ -1,38 +1,65 @@
 #!/bin/sh
 
+
+SERVICES="shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice"
+
+echo "Poking some services to start things up"
+for s in ${SERVICES}; do
+  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
+  sleep 1
+done  
+
 # Check that things are running
-for s in shock-api awe-api transform narrative_method_store handlemngr handleservice user_profile userandjobstate ws ; do
-  L=$(docker ps -f name=proxy_$s -q|wc -l) #> /dev/null
-  if [ $L -ne 1 ] ; then
-    echo "$s not running"
-    exit 1
-  fi
+
+ALL_CONTAINERS_RUNNING=0
+while [ ${ALL_CONTAINERS_RUNNING} -eq 0 ]; do
+  echo "waiting for service containers..."
+  sleep 3
+  ALL_CONTAINERS_RUNNING=1
+  PROXY_RUNNING=""
+  OTHER_RUNNING=""
+  PROXY_NOT_RUNNING=""
+  OTHER_NOT_RUNNING=""
+  for s in ${SERVICES}; do
+    L=$(docker ps -f name=proxy_$s -q|wc -l) #> /dev/null
+    if [ $L -ne 1 ] ; then
+      PROXY_NOT_RUNNING="${PROXY_NOT_RUNNING} $s"
+      ALL_CONTAINERS_RUNNING=0
+    else
+      PROXY_RUNNING="${PROXY_RUNNING} $s"
+    fi
+  done
+  for s in mysql mongo deploydev_aweworkerdev_1; do
+    L=$(docker ps -f name=$s$ -q|wc -l) #> /dev/null
+    if [ $L -ne 1 ] ; then
+      OTHER_NOT_RUNNING="${OTHER_NOT_RUNNING} $s"
+      ALL_CONTAINERS_RUNNING=0
+    else
+      OTHER_RUNNING="${OTHER_RUNNING} $s"
+    fi
+  done
+  echo "Running: ${PROXY_RUNNING} ${OTHER_RUNNING}"
+  echo "Services that are NOT running: ${PROXY_NOT_RUNNING} ${OTHER_NOT_RUNNING}"
 done
 
 
-for s in mysql mongo deploydev_aweworkerdev_1; do
-  L=$(docker ps -f name=$s$ -q|wc -l) #> /dev/null
-  if [ $L -ne 1 ] ; then
-    echo "$s not running"
-    exit 1 
-  fi
-done
 
 # Check shock
 if [ $(docker logs proxy_shock-api 2>&1|grep -c Running) -lt 1 ] ; then
-  echo "Shock not running"
+  echo "Shock container not running"
   exit 1
 fi
 
+
 # Check the slow pokes
-for s in ws narrative_method_store userandjobstate user_profile ; do
+for s in ws narrative_method_store userandjobstate user_profile njs_wrapper; do
   while [ $(docker logs proxy_$s 2>&1|tail -1|grep -c Starting) -eq 1 ] ; do
-    echo "Waiting for $s to start"
+    echo "Waiting for service $s to start"
     sleep 10
   done
 
   while [ $(docker logs proxy_$s 2>&1|grep -c 'Domain Ping') -lt 1 ] ; do
-    echo "$s not ready"
+    echo "Service $s not ready"
     sleep 10
   done
 done

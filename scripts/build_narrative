@@ -4,8 +4,9 @@
 #
 . ./site.cfg
 
+cp -a ssl narrative/
 cat << EOF > ./narrative/url.cfg 
-SERVICESSL=$PUBLIC:8443
-NARRSSL=$PUBLIC:6443
+SERVICESSL=${PUBLIC_ADDRESS}:8443
+NARRSSL=${PUBLIC_ADDRESS}:6443
 EOF
 docker build -t kbase/narrative:latest narrative

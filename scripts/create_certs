@@ -2,24 +2,19 @@
 
 [ -e ./ssl ] || mkdir ./ssl
 
+. ./site.cfg
+export PUBLIC
+
 # Create certs for development deploy
 if [ -e ./ssl/proxy.key ] ; then
   echo "Skipping proxy cert"
 else
-  openssl genrsa -des3 -out server.key -passout pass:temp 2048
-  openssl req -batch -config openssl.cnf -new -passin pass:temp -key server.key -out server.csr
-  openssl x509 -req -days 365 -passin pass:temp -in server.csr -signkey server.key -out ./ssl/proxy.crt
-  openssl rsa -passin pass:temp -in server.key -out ./ssl/proxy.key
-  rm server.csr server.key
+  openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ./ssl/proxy.key -out ./ssl/proxy.crt -config openssl.cnf  -batch
 fi
   
 if [ -e ./ssl/narrative.key ] ; then
   echo "Skipping narrative cert"
 else
-  openssl genrsa -des3 -out server.key -passout pass:temp 2048
-  openssl req -batch -config openssl.cnf -new -passin pass:temp -key server.key -out server.csr
-  openssl x509 -req -days 365 -passin pass:temp -in server.csr -signkey server.key -out ./ssl/narrative.crt
-  openssl rsa -passin pass:temp -in server.key -out ./ssl/narrative.key
-  rm server.csr server.key
+  cp ./ssl/proxy.key ./ssl/narrative.key
+  cp ./ssl/proxy.crt ./ssl/narrative.crt
 fi
-

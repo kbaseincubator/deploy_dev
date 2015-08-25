@@ -6,7 +6,7 @@ NAME=testweb.$$
 docker run --name $NAME -d --publish 8888:80 nginx:1.9.2 > /dev/null 2>&1 
 if [ $? -ne 0 ] ;then
   echo "Failed to start server.  Perhaps an older container is using port 8888."
-  echo "If so try removing it first with docker rm -f"
+  echo "If so try removing it first with docker rm -f, or run the reset script (scripts/reset.sh)"
   docker ps|grep :8888
   exit 1
 fi

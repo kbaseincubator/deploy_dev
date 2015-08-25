@@ -1,7 +1,13 @@
 #!/bin/sh
 
+echo "Poking some services to start things up"
+for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice; do
+  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
+  sleep 1
+done  
+
 # Check that things are running
-for s in shock-api awe-api transform narrative_method_store handlemngr handleservice user_profile userandjobstate ws ; do
+for s in shock-api awe-api transform narrative_method_store handlemngr handleservice user_profile userandjobstate ws njs_wrapper narrativejobservice; do
   L=$(docker ps -f name=proxy_$s -q|wc -l) #> /dev/null
   if [ $L -ne 1 ] ; then
     echo "$s not running"
@@ -25,7 +31,7 @@ if [ $(docker logs proxy_shock-api 2>&1|grep -c Running) -lt 1 ] ; then
 fi
 
 # Check the slow pokes
-for s in ws narrative_method_store userandjobstate user_profile ; do
+for s in ws narrative_method_store userandjobstate user_profile njs_wrapper; do
   while [ $(docker logs proxy_$s 2>&1|tail -1|grep -c Starting) -eq 1 ] ; do
     echo "Waiting for $s to start"
     sleep 10

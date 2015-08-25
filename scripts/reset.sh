@@ -32,6 +32,5 @@ if [ -e site.cfg ] ; then
   docker rmi $IMAGE
 fi
 
-rm -f cluster.ini
 rm -f initialize.out
 

@@ -91,11 +91,11 @@ if [ ! -e initialize.out ] ; then
   ./scripts/initialize.sh > initialize.out
 else
   echo ""
-  echo "Skipping Initialize."
-  echo "Run ./scripts/initialize.sh by hand if you need to re-initialize"
+  echo "WARNING:  Skipping Initialize."
+  echo "WARNING:  Run ./scripts/initialize.sh by hand if you need to re-initialize"
   echo ""
 fi
-sleep 5
+sleep 1
 
 if [ ! -e ./kbrouter ] ; then
   echo "Cloning kbrouter"
@@ -107,16 +107,19 @@ docker-compose build >> build.out
 
 echo "Starting Router"
 docker-compose up -d
+if [ $? -ne 0 ] ; then
+  echo "==========================="
+  echo ""
+  echo "Failed on docker-compose up"
+  echo "Make sure your image names specified in docker-compose.yml match the name in site.cfg ($IMAGE)"
+  exit 2
+fi
+
 echo "Waiting for router to start"
 while [ $(curl -s http://${PUBLIC_ADDRESS}:8080/services/|grep -c user_profile) -lt 1 ] ; do
   sleep 1
 done
 echo ""
-
-echo "Poking some services to start things up"
-for s in shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store; do
-  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
-done
 
 echo "Checking deployment"
 ./scripts/check_deployment || exit 1

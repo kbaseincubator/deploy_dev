@@ -19,7 +19,7 @@ done
 # Check for the site.cfg
 if [ ! -e ./site.cfg ] ; then
   echo "No site.cfg"
-  echo "Copy site.cfg.example and modify appropriately"
+  echo "Copy site.cfg.example and modify appropriately, inserting your KBase developer username and password"
   exit
 fi
 

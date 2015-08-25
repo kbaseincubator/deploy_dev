@@ -32,7 +32,7 @@ If you encounter problems when trying to deploy, you can look at the [README-dep
 
 ## Starting a client container
 
-If you want to start a client container, use the client.sh script. It will run as your user id using your home directory. This will take about 20 minutes to run. If everything completes successfully, it will tell you the URL at which you can see your narrative instance, e.g., point your browser to: https://docker04.berkeley.kbase.us:6443/. But visit https://docker04.berkeley.kbase.us:8443/services/ first to accept the SSL certificate.
+If you want to start a client container, use the client.sh script. It will run as your user id using your home directory. This will take about 20 minutes to run. If everything completes successfully, it will tell you the URL at which you can see your narrative instance, e.g., point your browser to: https://<publichostname>:6443/. But visit https://<publichostname>:8443/services/ first to accept the SSL certificate.
 
     ./scripts/client.sh
 

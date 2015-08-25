@@ -20,19 +20,24 @@ A functioning deployment currently requires around 40GB of disk space available 
     PASSWORD=<your password>
     PUBLIC_ADDRESS=<public IP or public hostname of your machine>
 
-Note that your docker machine needs to be accessible from your webbrowser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.
+Note that your docker machine needs to be accessible from your web browser, because this is how you will get to your Narratives; it also has to be resolvable within the docker container.
 
 ## Run the bootstrap script to start things up
 
     ./deploy.sh
 
+
 If you encounter problems when trying to deploy, you can look at the [README-deploy](README-deploy.md) file that describes in detail the steps that are performed by the deployment script.
 
-## Starting a client container:
 
-There is a helper script to start a client container. It will run as your user id using your home directory.
+## Starting a client container
+
+If you want to start a client container, use the client.sh script. It will run as your user id using your home directory. This will take about 20 minutes to run. If everything completes successfully, it will tell you the URL at which you can see your narrative instance, e.g., point your browser to: https://docker04.berkeley.kbase.us:6443/. But visit https://docker04.berkeley.kbase.us:8443/services/ first to accept the SSL certificate.
 
     ./scripts/client.sh
+
+If the deploy script hangs, you may need to kill it and reset (see the "Resetting" section below).
+
 
 ## Resetting
 

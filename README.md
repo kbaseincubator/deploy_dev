@@ -31,7 +31,8 @@ This will take about 20 minutes to run. If you encounter problems when trying to
 If everything completes successfully, it will tell you the URL at which you can see your narrative instance, e.g., "Point your browser to: https://\<publichostname\>:6443/. But visit https://\<publichostname\>:8443/services/ first to accept the SSL certificate."
 
 If the deploy script hangs, you may need to kill it and reset (see the "Resetting" section below).
----
+
+----
 
 ## Resetting
 

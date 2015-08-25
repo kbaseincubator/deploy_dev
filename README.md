@@ -32,11 +32,11 @@ If you encounter problems when trying to deploy, you can look at the [README-dep
 
 ## Starting a client container
 
-If you want to start a client container, use the client.sh script. It will run as your user id using your home directory. This will take about 20 minutes to run. If everything completes successfully, it will tell you the URL at which you can see your narrative instance, e.g., point your browser to: https://<publichostname>:6443/. But visit https://<publichostname>:8443/services/ first to accept the SSL certificate.
+If you want to start a client container, use the client.sh script. It will run as your user id using your home directory. This will take about 20 minutes to run. 
 
     ./scripts/client.sh
 
-If the deploy script hangs, you may need to kill it and reset (see the "Resetting" section below).
+If everything completes successfully, it will tell you the URL at which you can see your narrative instance, e.g., point your browser to: https://\<publichostname\>:6443/. But visit https://\<publichostname\>:8443/services/ first to accept the SSL certificate. If the deploy script hangs, you may need to kill it and reset (see the "Resetting" section below).
 
 
 ## Resetting

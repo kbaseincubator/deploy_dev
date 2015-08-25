@@ -9,11 +9,11 @@ NGINX=nginx:1.9.2
 # Pre-reqs
 echo "Preflight"
 for image in $DEPL $BASE $MONGO $MYSQL $NGINX; do
-  docker inspect $image > /dev/null
-  if [ $? -ne 0 ] ; then
+  #docker inspect $image > /dev/null
+  #if [ $? -ne 0 ] ; then
     echo "Pulling $image"
     docker pull $image
-  fi
+  #fi
 done
 
 # Check for the site.cfg

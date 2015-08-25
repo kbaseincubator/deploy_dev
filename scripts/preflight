@@ -5,11 +5,13 @@
 NAME=testweb.$$
 docker run --name $NAME -d --publish 8888:80 nginx:1.9.2 > /dev/null 2>&1 || exit
 
-echo "Checking that we can reach server on localhost"
-if [ $(curl -s localhost:8888 |grep -c Thank) -eq 0 ] ;then
-  echo "Failed to start test server.  Is docker working"
-  docker rm -f $NAME > /dev/null
-  exit 1
+if [ $BOOT2DOCKER -eq 0 ] ;then
+  echo "Checking that we can reach server on localhost"
+  if [ $(curl -s localhost:8888 |grep -c Thank) -eq 0 ] ;then
+    echo "Failed to start test server.  Is docker working"
+    docker rm -f $NAME > /dev/null
+    exit 1
+  fi
 fi
 
 echo "Testing $PUBLIC address"

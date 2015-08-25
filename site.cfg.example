@@ -10,6 +10,11 @@ PASSWORD=password
 # address returned by boot2docker ip or docker-machine ip dev)
 PUBLIC=public.hostname.org
 
+# This should be set to 1 if you are developing within boot2docker
+# on a local machine.  In this case, localhost will not be tested
+# in the preflight script.
+BOOT2DOCKER=0
+
 # If you change this you may need to update cluster.ini too.
 #
 # If you use a non-default, you will need to edit docker-compose.yml

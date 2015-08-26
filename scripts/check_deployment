@@ -3,8 +3,11 @@
 
 SERVICES="shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice"
 
+. ./site.cfg
+
 echo "Poking some services to start things up"
 for s in ${SERVICES}; do
+  echo " - $s"
   curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
   sleep 1
 done  

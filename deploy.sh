@@ -40,7 +40,7 @@ fi
 
 [ -e ./cluster.ini ] || ./scripts/generate_config
 
-if [ ! -e ./ssl/ ] ; then
+if [ ! -e ./ssl/proxy.crt ] ; then
   echo "Creating self-signed certs"
   ./scripts/create_certs
 fi

@@ -11,8 +11,11 @@ Clone the service repo and add a Dockerfile based on Dockerfile.services
 
 Be sure that your service runs in the foreground when you run start_service.  Otherwise the container will immediately exit and die.
 
-The template will concatentate the deploy.cfg file to /kb/deployment/deployment.cfg.  Modify the template apprioriately based on the
-needs of the service.
+The template will concatenate the deploy.cfg file to /kb/deployment/deployment.cfg.  Modify the template apprioriately based on the needs of the service.  If you are modifying a service that is already configured in cluster.ini, you MUST comment out the line in Dockerfile.myservice that concatenates the deploy.cfg file to /kb/deployment/deployment.cfg and use the second line like so:
+
+    #RUN cd /kb/dev_container/modules/THIS_MODODULE && . ../../user-env.sh && make && make deploy && cat deploy.cfg >> /kb/deployment/deployment.cfg
+    RUN cd /kb/dev_container/modules/THIS_MODODULE && . ../../user-env.sh && make && make deploy
+
 
 Build the image and tag it.  You should probably use a tag different from the default.
 

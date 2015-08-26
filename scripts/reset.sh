@@ -4,7 +4,7 @@
 
 
 DIRNAME=$(basename `pwd` | tr -d '_')
-KILLCONTAINER="-f name=proxy_ -f name=${DIRNAME}_ -f name=mysql -f name=mongo"
+KILLCONTAINER="-f name=proxy_ -f name=${DIRNAME}_ -f name=mysql -f name=mongo -f name=testweb"
 echo "Warning: This will kill your running containers (${KILLCONTAINER}) and reinitialize your configuration."
 echo "Hit Ctrl-C if you wish to cancel..."
 

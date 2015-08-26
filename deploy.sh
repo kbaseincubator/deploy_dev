@@ -40,7 +40,7 @@ fi
 
 [ -e ./cluster.ini ] || ./scripts/generate_config
 
-if [ ! -e ./ssl/proxy.crt ] ; then
+if [ $(ls -1 ssl/{narrative.crt,narrative.key,proxy.crt,proxy.key} | wc -l) -ne 4] ; then
   echo "Creating self-signed certs"
   ./scripts/create_certs
 fi

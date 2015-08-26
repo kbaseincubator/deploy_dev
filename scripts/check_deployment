@@ -1,18 +1,20 @@
 #!/bin/sh
 
-
+. ./site.cfg
+export PUBLIC_ADDRESS
 SERVICES="shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice"
-
-echo "Poking some services to start things up"
-for s in ${SERVICES}; do
-  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
-  sleep 1
-done  
 
 # Check that things are running
 
 ALL_CONTAINERS_RUNNING=0
 while [ ${ALL_CONTAINERS_RUNNING} -eq 0 ]; do
+
+  echo "Poking some services to start things up"
+  for s in ${SERVICES}; do
+    curl -s -k https://${PUBLIC_ADDRESS}:8443/services/$s  > /dev/null
+    sleep 1
+  done  
+
   echo "waiting for service containers..."
   sleep 3
   ALL_CONTAINERS_RUNNING=1

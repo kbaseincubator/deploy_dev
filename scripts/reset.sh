@@ -23,6 +23,17 @@ echo "Killing containers"
 
 docker rm -f $(docker ps ${KILLCONTAINER} -a -q)
 
+echo "Killing Narrative containers"
+
+for container in $(docker ps -a -q) ; do
+  if [ "$(docker inspect  -f {{.Args}} ${container} | grep -c 'run_magellan_narrative.sh')" -eq 1 ] ; then
+    echo "deleting narrative container ${container}"
+    docker rm -f ${container}
+  fi
+done
+
+
+
 echo "Cleaning up dangling images"
 docker rmi $(docker images -f dangling=true -q)
 

@@ -12,11 +12,13 @@ if [ $? -ne 0 ] ;then
 fi
 sleep 1
 
-echo "Checking that we can reach server on localhost"
-if [ $(curl -s localhost:8888 |grep -c Thank) -eq 0 ] ;then
-  echo "Warn: Failed to contact test server.  Is it running?"
-  echo "Warn: This may fail on Mac based systems."
-  docker ps|grep :8888
+if [ "${BOOT2DOCKER}x" = "0x" ] ;then
+  echo "Checking that we can reach server on localhost"
+  if [ $(curl -s localhost:8888 |grep -c Thank) -eq 0 ] ;then
+    echo "Failed to start test server.  Is docker working"
+    docker rm -f $NAME > /dev/null
+    exit 1
+  fi
 fi
 
 echo "Testing ${PUBLIC_ADDRESS} address"

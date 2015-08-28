@@ -3,7 +3,7 @@
 [ -e ./ssl ] || mkdir ./ssl
 
 . ./site.cfg
-export PUBLIC
+export PUBLIC_ADDRESS
 
 # Create certs for development deploy
 if [ -e ./ssl/proxy.key ] ; then

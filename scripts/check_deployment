@@ -3,18 +3,21 @@
 
 SERVICES="shock-api awe-api handleservice handlemngr ws userandjobstate user_profile transform narrative_method_store njs_wrapper narrativejobservice"
 
+. ./site.cfg
+
 echo "Poking some services to start things up"
-for s in ${SERVICES}; do
-  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
-  sleep 1
-done  
+#for s in ${SERVICES}; do
+#  echo " - $s"
+#  curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
+#  sleep 1
+#done  
 
 # Check that things are running
 
 ALL_CONTAINERS_RUNNING=0
+FIRST_ROUND=1
 while [ ${ALL_CONTAINERS_RUNNING} -eq 0 ]; do
   echo "waiting for service containers..."
-  sleep 3
   ALL_CONTAINERS_RUNNING=1
   PROXY_RUNNING=""
   OTHER_RUNNING=""
@@ -25,6 +28,11 @@ while [ ${ALL_CONTAINERS_RUNNING} -eq 0 ]; do
     if [ $L -ne 1 ] ; then
       PROXY_NOT_RUNNING="${PROXY_NOT_RUNNING} $s"
       ALL_CONTAINERS_RUNNING=0
+      if [ ${FIRST_ROUND} -eq 1 ]; then
+        echo " - $s"
+        curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
+        sleep 1
+      fi
     else
       PROXY_RUNNING="${PROXY_RUNNING} $s"
     fi
@@ -34,12 +42,21 @@ while [ ${ALL_CONTAINERS_RUNNING} -eq 0 ]; do
     if [ $L -ne 1 ] ; then
       OTHER_NOT_RUNNING="${OTHER_NOT_RUNNING} $s"
       ALL_CONTAINERS_RUNNING=0
+      if [ ${FIRST_ROUND} -eq 1 ]; then
+        echo " - $s"
+        curl -s http://${PUBLIC_ADDRESS}:8080/services/$s > /dev/null
+        sleep 1
+      fi
+
     else
       OTHER_RUNNING="${OTHER_RUNNING} $s"
     fi
   done
   echo "Running: ${PROXY_RUNNING} ${OTHER_RUNNING}"
-  echo "Services that are NOT running: ${PROXY_NOT_RUNNING} ${OTHER_NOT_RUNNING}"
+  if [ ${ALL_CONTAINERS_RUNNING} -eq 0 ]; then
+    echo "Services that are NOT running: ${PROXY_NOT_RUNNING} ${OTHER_NOT_RUNNING}"
+  fi
+  FIRST_ROUND=0
 done
 
 

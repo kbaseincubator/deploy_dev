@@ -4,11 +4,11 @@
 
 
 DIRNAME=$(basename `pwd` | tr -d '_')
-KILLCONTAINER="-f name=proxy_ -f name=${DIRNAME}_ -f name=mysql -f name=mongo"
-echo "Warning: This will kill your running containers (${KILLCONTAINER}) and reinitialize your configuration."
+KILLCONTAINER="-f name=proxy_ -f name=${DIRNAME}_ -f name=client_ -f name=mysql -f name=mongo -f name=testweb"
+echo "Warning: This will kill your running KBase containers (e.g. proxy_*, ${DIRNAME}_*, client_*, mysql, mongo, Narrative) and reinitialize your configuration."
 echo "Hit Ctrl-C if you wish to cancel..."
 
-t=8
+t=4
 while [ $t -gt 0 ] ; do
   echo -n -e "$t  \r"
   sleep 1
@@ -22,6 +22,17 @@ echo
 echo "Killing containers"
 
 docker rm -f $(docker ps ${KILLCONTAINER} -a -q)
+
+echo "Killing Narrative containers"
+
+for container in $(docker ps -a -q) ; do
+  if [ "$(docker inspect  -f {{.Args}} ${container} | grep -c 'run_magellan_narrative.sh')" -eq 1 ] ; then
+    echo "deleting narrative container ${container}"
+    docker rm -f ${container}
+  fi
+done
+
+
 
 echo "Cleaning up dangling images"
 docker rmi $(docker images -f dangling=true -q)

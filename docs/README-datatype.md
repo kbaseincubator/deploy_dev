@@ -1,15 +1,16 @@
 # Adding a new datatype to the Workspace
 
-KBase data objects are strongly typed, meaning that the datatype has a structure with required and optional fields.  This structure is enforced during creation.
-You can add types to the system.  However, please consult the [Project Guides](https://github.com/kbase/project_guides) before trying to add new types.
+KBase data objects are strongly typed, meaning that each datatype has a structure with required and optional fields.  This structure is enforced during creation.
 
-The basic steps to adding a new type are: 1) login and connect to the workspace 2) Request and approve the new module (i.e. namespace)  3) Create the typespec 4) Register, commit and release the typespec
+You can add new types to KBase, but please consult the [Project Guides](https://github.com/kbase/project_guides) before you begin.
 
-We will now walk through each step.  We will register a new module call MyModule.
+The basic steps to adding a new type are: 1) Login and connect to the workspace; 2) Request and approve the new module (e.g., namespace);  3) Create the typespec; 4) Register, commit and release the typespec
+
+We will now walk through each step.  In this example, we will register a new module called MyModule.
 
 ## Connect to the workspace
 
-If you have the workspace tools installed locally you can try using them.  Otherwise you can use the client.sh helper script to start a client session
+If you have the workspace tools installed locally you can try using them.  Otherwise you can use the client.sh helper script to start a client session:
 
     ./client.sh
     . ./path/to/site.cfg

@@ -9,9 +9,11 @@
 FROM kbase/depl:latest
 MAINTAINER Shane Canon scanon@lbl.gov
 
-ADD . /kb/dev_container/modules/THIS_MODULE
+ADD ./THIS_MODULE /kb/dev_container/modules/THIS_MODULE
 
+# Comment out this line and use the commented second line if you are modifying an already running service
 RUN cd /kb/dev_container/modules/THIS_MODODULE && . ../../user-env.sh && make && make deploy && cat deploy.cfg >> /kb/deployment/deployment.cfg
+#RUN cd /kb/dev_container/modules/THIS_MODODULE && . ../../user-env.sh && make && make deploy
 
 # Make any changes to ensure the service runs in the foreground.
 

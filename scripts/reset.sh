@@ -5,10 +5,10 @@
 
 DIRNAME=$(basename `pwd` | tr -d '_')
 KILLCONTAINER="-f name=proxy_ -f name=${DIRNAME}_ -f name=mysql -f name=mongo -f name=testweb"
-echo "Warning: This will kill your running containers (${KILLCONTAINER}) and reinitialize your configuration."
+echo "Warning: This will kill your running KBase containers (e.g. proxy_*, ${DIRNAME}_*, mysql, mongo, Narrative) and reinitialize your configuration."
 echo "Hit Ctrl-C if you wish to cancel..."
 
-t=8
+t=4
 while [ $t -gt 0 ] ; do
   echo -n -e "$t  \r"
   sleep 1

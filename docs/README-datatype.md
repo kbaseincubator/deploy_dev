@@ -55,6 +55,7 @@ funcdef getValueSet(string id) returns (ValueSet);
 ## Register, commit, and release the new type spec
 
     ws-typespec-register  -t MyModule.spec  --add 'ValueSet;FloatValueSet'
+This gives you a preview of what will be committed. Now you can do the real commit:
     ws-typespec-register  -t MyModule.spec  --add 'ValueSet;FloatValueSet' --commit
     ws-typespec-register --release MyModule
     ws-typespec-list MyModule --spec

@@ -14,8 +14,8 @@ If you have the workspace tools installed locally you can try using them.  Other
 
 ## Connect to the workspace
 
-    ./client.sh
-    . site.cfg
+    ./scripts/client.sh
+    . ./site.cfg
     ws-url http://${PUBLIC_ADDRESS}:8080/services/ws
     echo $PASSWORD|kbase-login $USER
 You can check that you are successfully logged in by typing

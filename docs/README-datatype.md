@@ -8,6 +8,8 @@ The basic steps to adding a new type are: 1) Login and connect to the workspace;
 
 We will now walk through each step.  In this example, we will register a new module called MyModule.
 
+## Start a new client session
+
 If you have the workspace tools installed locally you can try using them.  Otherwise you can use the client.sh helper script to start a client session. In these instructions, we assume that you've already set up your site.cfg (see [deploy_dev/README.md](https://github.com/kbaseIncubator/deploy_dev/) for instructions). In your site.cfig, you should have set PUBLIC_ADDRESS to your public hostname. You will also need to have successfully completed the bootstrap launch (with the deploy.sh script).
 
 ## Connect to the workspace

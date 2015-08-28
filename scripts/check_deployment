@@ -69,7 +69,7 @@ fi
 
 
 # Check the slow pokes
-for s in ws narrative_method_store userandjobstate user_profile njs_wrapper; do
+for s in njs_wrapper; do
   while [ $(docker logs proxy_$s 2>&1|tail -1|grep -c Starting) -eq 1 ] ; do
     echo "Waiting for service $s to start"
     sleep 10

@@ -1,6 +1,5 @@
 #!/bin/sh
 DEPL=kbase/deplbase:latest
-BASE=kbase/narrative:base2.0
 KBR=https://github.com/KBaseIncubator/kbrouter
 MONGO=mongo:2.4
 MYSQL=mysql:5.5
@@ -8,7 +7,7 @@ NGINX=nginx:1.9.2
 
 # Pre-reqs
 echo "Preflight"
-for image in $DEPL $BASE $MONGO $MYSQL $NGINX; do
+for image in $DEPL $MONGO $MYSQL $NGINX; do
   #docker inspect $image > /dev/null
   #if [ $? -ne 0 ] ; then
     echo "Pulling $image"

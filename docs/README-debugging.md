@@ -8,7 +8,7 @@ Checking logs:  From the deploy_dev directory run...
 
 UJS
 
-    docker logs proxy_ujs |grep -v INFO
+    docker logs proxy_userandjobstate |grep -v INFO
 
 Workspace:
 

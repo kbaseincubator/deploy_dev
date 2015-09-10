@@ -66,17 +66,3 @@ if [ $(docker logs proxy_shock-api 2>&1|grep -c Running) -lt 1 ] ; then
   echo "Shock container not running"
   exit 1
 fi
-
-
-# Check the slow pokes
-for s in njs_wrapper; do
-  while [ $(docker logs proxy_$s 2>&1|tail -1|grep -c Starting) -eq 1 ] ; do
-    echo "Waiting for service $s to start"
-    sleep 10
-  done
-
-  while [ $(docker logs proxy_$s 2>&1|grep -c 'Domain Ping') -lt 1 ] ; do
-    echo "Service $s not ready"
-    sleep 10
-  done
-done

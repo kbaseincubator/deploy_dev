@@ -57,4 +57,9 @@ Download and install Boot2Docker from: https://github.com/boot2docker/osx-instal
 Install Docker Toolbox from 
 https://www.docker.com/toolbox
 
-This will install docker and docker-compose. Docker and container run in VirtualBox VM in the background. Open "Docker Quickstart Terminal" (or "Kitematic"). When you open the terminal, a message tells you the IP Docker uses. This IP you will need to specify as PUBLIC_ADDRESS in the site.cfg for your deployment.
+This will install docker and docker-compose. Docker and container run in VirtualBox VM in the background. Open "Docker Quickstart Terminal" (or "Kitematic"). When you open the terminal, a message tells you the IP Docker uses. This IP you will need to specify as PUBLIC_ADDRESS in the site.cfg for your deployment. Kitematic provides a GUI to run Docker container but you can aslo invoke a terminal by clicking on the "DOCKER CLI" button in the bottom left corner.
+
+You can also find the Docker/VM IP using one of these commands:
+
+    ifconfig vboxnet0
+    netstat -rn | grep vboxnet

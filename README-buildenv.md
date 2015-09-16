@@ -1,7 +1,7 @@
 # Building development environment
 Instructions to prepare environment to run local KBase deployment. There are currently 3 options for building a development environment. Option 1 is to run a docker natively in Ubuntu, option 2 and 3 run Docker in a virtual machine under OSX and Windows.
 
-# Option 1 (Ubuntu)
+# Option 1: Docker natively (Ubuntu)
 
 ## Get a base image
 
@@ -40,9 +40,7 @@ e.g. OpenStack, create security group using nova tools:
     nova secgroup-add-rule mykbdepl tcp 6443 6443 0.0.0.0/0
     
 
-# Option 2 (Mac OSX 10.6 or newer)
-
-## Install Boot2Docker
+# Option 2: Boot2Docker (deprecated!?) (Mac OSX 10.6 or newer)
 
 Download and install Boot2Docker from: https://github.com/boot2docker/osx-installer/releases/download/v1.7.1/Boot2Docker-1.7.1.pkg
 
@@ -57,7 +55,7 @@ Download and install Boot2Docker from: https://github.com/boot2docker/osx-instal
 Install Docker Toolbox from 
 https://www.docker.com/toolbox
 
-This will install docker and docker-compose. Docker and container run in VirtualBox VM in the background. Open "Docker Quickstart Terminal" (or "Kitematic"). When you open the terminal, a message tells you the IP Docker uses. This IP you will need to specify as PUBLIC_ADDRESS in the site.cfg for your deployment. Kitematic provides a GUI to run Docker container but you can aslo invoke a terminal by clicking on the "DOCKER CLI" button in the bottom left corner.
+This will install docker and docker-compose. Docker will run in a VirtualBox VM in the background. Open "Docker Quickstart Terminal" (or "Kitematic"). When you open the Docker terminal, a message tells you the IP Docker uses. You will need to specify this IP as PUBLIC_ADDRESS in the site.cfg for your deployment. Kitematic provides a GUI to run Docker container but you can also invoke a terminal by clicking on the "DOCKER CLI" button in the bottom left corner.
 
 You can also find the Docker/VM IP using one of these commands:
 

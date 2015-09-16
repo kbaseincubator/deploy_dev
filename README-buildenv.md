@@ -1,5 +1,5 @@
 # Building development environment
-Instructions to prepare environment to run local KBase deployment. There are currently 2 options for building a development environment. Option 1 is to run a docker natively in Ubuntu, option 2 is to run docker thru a VM on a Mac OSX (running OS X 10.6 “Snow Leopard” or newer) using Boot2Docker.
+Instructions to prepare environment to run local KBase deployment. There are currently 3 options for building a development environment. Option 1 is to run a docker natively in Ubuntu, option 2 and 3 run Docker in a virtual machine under OSX and Windows.
 
 # Option 1 (Ubuntu)
 
@@ -52,9 +52,9 @@ Download and install Boot2Docker from: https://github.com/boot2docker/osx-instal
     sudo mv docker-compose /usr/local/bin/
     chmod +x /usr/local/bin/docker-compose
 
-# Option 3 Docker Toolbox / Kitematic- not tested (Mac OS X 10.8+ and Windows 7+ (64-bit))
+# Option 3 Docker Toolbox / Kitematic (Mac OS X 10.9+ and Windows 7+)
 
 Install Docker Toolbox from 
 https://www.docker.com/toolbox
 
-This will install docker and docker-compose. Docker and container run in VirtualBox VM in the background.
+This will install docker and docker-compose. Docker and container run in VirtualBox VM in the background. Open "Docker Quickstart Terminal" (or "Kitematic"). When you open the terminal, a message tells you the IP Docker uses. This IP you will need to specify as PUBLIC_ADDRESS in the site.cfg for your deployment.

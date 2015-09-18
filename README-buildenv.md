@@ -1,9 +1,9 @@
 # Building development environment
-Instructions to prepare environment to run local KBase deployment. There are currently 3 options for building a development environment. Option 1 is to run a docker natively in Ubuntu, option 2 and 3 run Docker in a virtual machine under OSX and Windows.
+Instructions to prepare environment to run local KBase deployment. There are currently 2 options for building a development environment. Option 1 is to run a docker natively in Ubuntu, option 2 is to run Docker in a virtual machine under OSX or Windows using the Docker Toolbox.
 
-# Option 1: Docker natively (Ubuntu)
+## Option 1: Docker natively (Ubuntu)
 
-## Get a base image
+### Get a base image
 
 You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
 
@@ -11,19 +11,19 @@ You can download Ubuntu 14.04 from http://www.ubuntu.com/download/desktop
 
     sudo apt-get update
 
-## Download/install the latest docker package. Create docker group and add your user.
+### Download/install the latest docker package. Create docker group and add your user.
 
     wget -qO- https://get.docker.com/ | sh
     sudo usermod -aG docker ubuntu # log out and back in
 
-## Install docker-compose
+### Install docker-compose
 
     curl -L https://github.com/docker/compose/releases/download/1.3.3/docker-compose-`uname -s`-`uname -m` > docker-compose
     sudo mv docker-compose /usr/local/bin/
     chmod +x /usr/local/bin/docker-compose
 
 
-## Allow access to the following TCP ports.
+### Allow access to the following TCP ports.
 <ul>
 <li>ALLOW 8080:8080 from 0.0.0.0/0</li>
 <li>ALLOW 8888:8888 from 0.0.0.0/0</li>
@@ -40,17 +40,7 @@ e.g. OpenStack, create security group using nova tools:
     nova secgroup-add-rule mykbdepl tcp 6443 6443 0.0.0.0/0
     
 
-# Option 2: Boot2Docker (deprecated!?) (Mac OSX 10.6 or newer)
-
-Download and install Boot2Docker from: https://github.com/boot2docker/osx-installer/releases/download/v1.7.1/Boot2Docker-1.7.1.pkg
-
-## Install docker-compose
-
-    curl -L https://github.com/docker/compose/releases/download/1.3.3/docker-compose-`uname -s`-`uname -m` > docker-compose
-    sudo mv docker-compose /usr/local/bin/
-    chmod +x /usr/local/bin/docker-compose
-
-# Option 3 Docker Toolbox / Kitematic (Mac OS X 10.9+ and Windows 7+)
+## Option 2: Docker Toolbox / Kitematic (Mac OS X 10.9+ and Windows 7+)
 
 Install Docker Toolbox from 
 https://www.docker.com/toolbox

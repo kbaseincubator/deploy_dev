@@ -12,7 +12,8 @@ if [ $? -ne 0 ] ;then
 fi
 sleep 1
 
-if [ "${BOOT2DOCKER}x" = "0x" ] ;then
+# look for DOCKER_HOST too?
+if [ "${DOCKER_HOST}x" = "0x" ] ;then
   echo "Checking that we can reach server on localhost"
   if [ $(curl -s localhost:8888 |grep -c Thank) -eq 0 ] ;then
     echo "Failed to start test server.  Is docker working"

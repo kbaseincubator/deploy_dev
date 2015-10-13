@@ -1,4 +1,4 @@
-FROM kbase/narrative:1.0.3
+FROM kbase/narrative:develop
 MAINTAINER Shane Canon scanon@lbl.gov
 
 USER root

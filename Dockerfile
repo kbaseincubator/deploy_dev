@@ -11,7 +11,7 @@
 # are executed when this image "kbase/depl" is build. This is why this 
 # Dockerfile seems to be empty.
 
-FROM kbase/deplbase:latest
+FROM kbase/deplbase:develop
 MAINTAINER Shane Canon scanon@lbl.gov
 
 # Temporary hotfixes

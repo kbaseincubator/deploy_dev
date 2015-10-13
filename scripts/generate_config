@@ -8,7 +8,7 @@ fi
 . ./site.cfg
 
 BASE=$(grep ^FROM Dockerfile|sed 's/FROM //')
-docker run --rm $BASE cat cluster.ini.docker | \
+docker run --rm $BASE cat /kb/deployment/deployment.cfg | \
 	sed "s/=kbaseuserid/=$USER/"| \
 	sed "s/=kbpassword/=$PASSWORD/"| \
 	sed "s/public.hostname.org/${PUBLIC_ADDRESS}/g" | \

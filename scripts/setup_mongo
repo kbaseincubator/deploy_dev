@@ -13,5 +13,5 @@ else
   fi
 
   export MONGO_HOST=mongo
-  /tmp/dt/config/setup_mongo
+  ./config/setup_mongo
 fi

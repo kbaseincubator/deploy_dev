@@ -20,6 +20,9 @@ aweworkerdev:
   restart: always
   links:
    - www:www
+  volumes:
+   - /var/run/docker.sock:/var/run/docker.sock
+   - /mnt/awe/dev/work:/mnt/awe/dev/work
   command: aweworker dev
 narrative:
   image: kbase/depl:latest
